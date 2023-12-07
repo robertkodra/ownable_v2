@@ -20,7 +20,8 @@ mod Accounts {
     }
 }
 
-fn deploy_contract(constructor_args: Array<felt252>) -> ContractAddress {
+fn deploy_contract(initial_counter: u32) -> ContractAddress {
+    let constructor_args = array![initial_counter.into(), Accounts::OWNER().into()];
     let contract = declare('CounterContract');
     return contract.deploy(@constructor_args).unwrap();
 }
