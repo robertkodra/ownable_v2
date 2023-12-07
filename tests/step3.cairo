@@ -1,12 +1,9 @@
-use core::traits::Into;
 use ownable::counter::{ICounterContractDispatcher, ICounterContractDispatcherTrait};
-use snforge_std::{start_prank, stop_prank, CheatTarget};
-use super::utils::{deploy_contract, Accounts};
-use starknet::{get_caller_address, ContractAddress, testing};
-
 use ownable::ownable::{OwnableComponent};
 use OwnableComponent::{InternalImpl, OwnableImpl};
-
+use super::utils::{Accounts};
+use core::traits::Into;
+use starknet::{get_caller_address, ContractAddress, testing};
 
 #[starknet::contract]
 mod MockContract {

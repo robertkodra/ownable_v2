@@ -36,7 +36,7 @@ mod CounterContract {
     #[constructor]
     fn constructor(ref self: ContractState, initial_counter: u32, initial_owner: ContractAddress) {
         self.counter.write(initial_counter);
-        self.ownable.owner.write(initial_owner);
+        self.ownable.initializer(initial_owner);
     }
 
     #[external(v0)]
