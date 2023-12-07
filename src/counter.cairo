@@ -9,13 +9,14 @@ trait ICounterContract<TContractState> {
 
 #[starknet::contract]
 mod CounterContract {
-    use starknet::{ContractAddress, get_caller_address};
-    use ownable::ownable::OwnableComponent;
+    use openzeppelin::access::ownable::ownable::OwnableComponent::InternalTrait;
+use starknet::{ContractAddress, get_caller_address};
+    use openzeppelin::access::ownable::OwnableComponent;
 
     component!(path: OwnableComponent, storage: ownable, event: OwnableEvent);
 
     #[abi(embed_v0)]
-    impl OwnableImpl = OwnableComponent::Ownable<ContractState>;
+    impl OwnableImpl = OwnableComponent::OwnableImpl<ContractState>;
 
     impl OwnableInternalImpl = OwnableComponent::InternalImpl<ContractState>;
 
@@ -36,7 +37,7 @@ mod CounterContract {
     #[constructor]
     fn constructor(ref self: ContractState, initial_counter: u32, initial_owner: ContractAddress) {
         self.counter.write(initial_counter);
-        self.ownable.owner.write(initial_owner);
+        self.ownable.initializer(initial_owner);
     }
 
     #[external(v0)]
