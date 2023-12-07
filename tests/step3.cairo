@@ -1,7 +1,7 @@
 use core::traits::Into;
 use ownable::counter::{ICounterContractDispatcher, ICounterContractDispatcherTrait};
 use snforge_std::{start_prank, stop_prank, CheatTarget};
-use super::utils::{deploy_contract, Accounts, drop_event};
+use super::utils::{deploy_contract, Accounts};
 use starknet::{get_caller_address, ContractAddress, testing};
 
 use ownable::ownable::{OwnableComponent};
@@ -46,7 +46,6 @@ impl TestingStateImpl of TestingStateTrait {
     fn new_with(owner: ContractAddress) -> TestingState {
         let mut ownable: TestingState = Default::default();
         ownable.initializer(owner);
-        drop_event(Accounts::ZERO());
         ownable
     }
 }
