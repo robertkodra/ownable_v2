@@ -31,16 +31,14 @@ mod CounterContract {
 
     #[derive(Drop, starknet::Event)]
     struct OwnershipTransferred {
-        #[key]
         previous_owner: ContractAddress,
-        #[key]
         new_owner: ContractAddress,
     }
 
     #[constructor]
     fn constructor(ref self: ContractState, initial_counter: u32, initial_owner: ContractAddress) {
         self.counter.write(initial_counter);
-        self.owner.write(initial_owner);
+        self.initializer(initial_owner);
     }
 
     #[external(v0)]
@@ -75,7 +73,11 @@ mod CounterContract {
     }
 
     #[generate_trait]
-    impl PrivateMethods of PrivateMethodsTrait {
+    impl InternalImpl of InternalTrait {
+        fn initializer(ref self: ContractState, owner: ContractAddress) {
+            self._transfer_ownership(owner);
+        }
+
         fn assert_only_owner(self: @ContractState) {
             let owner: ContractAddress = self.owner.read();
             let caller = get_caller_address();

@@ -9,15 +9,15 @@ mod Accounts {
     use traits::TryInto;
     use starknet::{ContractAddress};
 
-    fn owner() -> ContractAddress {
+    fn OWNER() -> ContractAddress {
         'owner'.try_into().unwrap()
     }
 
-    fn new_owner() -> ContractAddress {
+    fn NEW_OWNER() -> ContractAddress {
         'new_owner'.try_into().unwrap()
     }
 
-    fn bad_actor() -> ContractAddress {
+    fn BAD_ACTOR() -> ContractAddress {
         'bad_actor'.try_into().unwrap()
     }
 }
