@@ -10,7 +10,7 @@ trait ICounterContract<TContractState> {
 #[starknet::contract]
 mod CounterContract {
     use openzeppelin::access::ownable::ownable::OwnableComponent::InternalTrait;
-use starknet::{ContractAddress, get_caller_address};
+    use starknet::{ContractAddress, get_caller_address};
     use openzeppelin::access::ownable::OwnableComponent;
 
     component!(path: OwnableComponent, storage: ownable, event: OwnableEvent);
