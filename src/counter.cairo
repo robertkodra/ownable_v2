@@ -6,7 +6,6 @@ trait ICounterContract<TContractState> {
     fn increase_counter(ref self: TContractState);
 }
 
-
 #[starknet::contract]
 mod CounterContract {
     use starknet::{ContractAddress, get_caller_address};
@@ -15,7 +14,7 @@ mod CounterContract {
     component!(path: OwnableComponent, storage: ownable, event: OwnableEvent);
 
     #[abi(embed_v0)]
-    impl OwnableImpl = OwnableComponent::Ownable<ContractState>;
+    impl OwnableImpl = OwnableComponent::OwnableImpl<ContractState>;
 
     impl OwnableInternalImpl = OwnableComponent::InternalImpl<ContractState>;
 

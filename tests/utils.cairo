@@ -1,11 +1,11 @@
-use starknet::{ContractAddress, testing};
+use starknet::{ContractAddress};
 use snforge_std::{declare, cheatcodes::contract_class::ContractClassTrait};
 
 // mock addresses
 // https://cairopractice.com
 mod Accounts {
     use traits::TryInto;
-    use starknet::{ContractAddress, contract_address_const};
+    use starknet::{ContractAddress};
 
     fn OWNER() -> ContractAddress {
         'owner'.try_into().unwrap()
@@ -18,13 +18,10 @@ mod Accounts {
     fn BAD_ACTOR() -> ContractAddress {
         'bad_actor'.try_into().unwrap()
     }
-
-    fn ZERO() -> ContractAddress {
-        contract_address_const::<0>()
-    }
 }
 
-fn deploy_contract(constructor_args: Array<felt252>) -> ContractAddress {
+fn deploy_contract(initial_counter: u32) -> ContractAddress {
+    let constructor_args = array![initial_counter.into(), Accounts::OWNER().into()];
     let contract = declare('CounterContract');
     return contract.deploy(@constructor_args).unwrap();
 }

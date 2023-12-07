@@ -28,8 +28,8 @@ mod OwnableComponent {
         new_owner: ContractAddress,
     }
 
-    #[embeddable_as(Ownable)]
-    impl OwnableImpl<
+    #[embeddable_as(OwnableImpl)]
+    impl Ownable<
         TContractState, +HasComponent<TContractState>
     > of super::IOwnable<ComponentState<TContractState>> {
         fn owner(self: @ComponentState<TContractState>) -> ContractAddress {
