@@ -63,15 +63,16 @@ fn test_ownable_initializer() {
 #[test]
 fn test_assert_only_owner() {
     let mut ownable: TestingState = TestingStateTrait::new_with(Accounts::OWNER());
-    testing::set_caller_address(Accounts::OWNER());
+    start_prank(CheatTarget::All, Accounts::OWNER());
     ownable.assert_only_owner();
+    stop_prank(CheatTarget::All);
 }
 
 #[test]
 #[should_panic(expected: ('Caller is not the owner',))]
 fn test_assert_only_owner_not_owner() {
     let mut ownable: TestingState = TestingStateTrait::new_with(Accounts::OWNER());
-    testing::set_caller_address(Accounts::BAD_ACTOR());
-
+    start_prank(CheatTarget::All, Accounts::BAD_ACTOR());
     ownable.assert_only_owner();
+    stop_prank(CheatTarget::All);   
 }
